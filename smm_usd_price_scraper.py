@@ -4,6 +4,8 @@ chromedriver_autoinstaller.install()
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 import pandas as pd
 from pathlib import Path
@@ -20,11 +22,15 @@ driver = webdriver.Chrome(options=options)
 try:
     url = "https://www.metal.com/Lithium/201905160001"
     driver.get(url)
-    time.sleep(10)
 
-    # Extract the leftmost USD/mt VAT-excluded price
-    print(driver.page_source)
-    price_element = driver.find_element(By.XPATH, "(//div[contains(text(), 'VAT excluded')]/ancestor::div[contains(@class, 'price-item')]//span)[1]")
+    # Wait until the VAT-excluded price element is loaded
+    price_element = WebDriverWait(driver, 20).until(
+        EC.presence_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'priceItem')][.//div[text()='VAT excluded']]//div[contains(@class, 'price___')]"
+        ))
+    )
+
     raw_price = price_element.text.strip().replace(",", "")
     usd_price = float(raw_price)
 
