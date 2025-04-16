@@ -2,7 +2,7 @@ name: Daily Lithium Price Scraper
 
 on:
   schedule:
-    - cron: '59 0 * * *'  # 08:59 SG time (00:59 UTC)
+    - cron: '59 0 * * *'  # 08:59 SGT
   workflow_dispatch:
 
 jobs:
@@ -22,15 +22,19 @@ jobs:
         run: |
           pip install selenium pandas
 
-      - name: Install Chrome browser
+      - name: Install Chrome + ChromeDriver manually
         run: |
+          sudo apt update
+          sudo apt install -y unzip wget curl
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
           sudo apt install -y ./google-chrome-stable_current_amd64.deb
-
-      - name: Set up ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-        with:
-          chromedriver-version: 'latest'
+          rm google-chrome-stable_current_amd64.deb
+          CHROME_VERSION=$(google-chrome --version | grep -oP "\d+\.\d+\.\d+")
+          CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
+          wget "https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip"
+          unzip chromedriver_linux64.zip
+          sudo mv chromedriver /usr/local/bin/
+          sudo chmod +x /usr/local/bin/chromedriver
 
       - name: Run scraper
         run: python smm_usd_price_scraper.py
