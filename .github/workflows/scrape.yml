@@ -2,7 +2,7 @@ name: Daily Lithium Price Scraper
 
 on:
   schedule:
-    - cron: '59 0 * * *'  # Runs daily at 08:59 Singapore time (00:59 UTC)
+    - cron: '59 0 * * *'  # 08:59 SG time (00:59 UTC)
   workflow_dispatch:
 
 jobs:
@@ -10,30 +10,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10'
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
 
-    - name: Install dependencies
-      run: |
-        pip install selenium pandas
+      - name: Install dependencies
+        run: |
+          pip install selenium pandas
 
-    - name: Set up Chrome & Chromedriver
-      uses: nanasess/setup-chromedriver@v2
-      with:
-        chromedriver-version: 'latest'
+      - name: Install Chrome browser
+        run: |
+          wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+          sudo apt install -y ./google-chrome-stable_current_amd64.deb
 
-    - name: Run scraper script
-      run: python smm_usd_price_scraper.py
+      - name: Set up ChromeDriver
+        uses: nanasess/setup-chromedriver@v2
+        with:
+          chromedriver-version: 'latest'
 
-    - name: Commit updated CSV
-      run: |
-        git config --global user.name "github-actions[bot]"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
-        git add usd_lithium_price.csv
-        git commit -m "Daily update: $(date +'%Y-%m-%d')"
-        git push
+      - name: Run scraper
+        run: python smm_usd_price_scraper.py
+
+      - name: Commit updated CSV
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git pull origin main
+          git add usd_lithium_price.csv
+          git commit -m "Daily update: $(date +'%Y-%m-%d')" || echo "No changes to commit"
+          git push
