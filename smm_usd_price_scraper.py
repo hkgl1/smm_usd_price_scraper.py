@@ -6,9 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from datetime import datetime
 import pandas as pd
+from pathlib import Path
 import time
-import os
 
+# Set up headless Chrome
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
@@ -26,18 +27,19 @@ try:
     raw_price = price_element.text.strip().replace(",", "")
     usd_price = float(raw_price)
 
-    # Save to CSV
+    # Prepare CSV file
+    csv_path = Path("usd_lithium_price.csv")
     today = datetime.now().strftime("%Y-%m-%d")
-    csv_file = "usd_lithium_price.csv"
 
-    if os.path.exists(csv_file):
-        df = pd.read_csv(csv_file)
+    if csv_path.exists():
+        df = pd.read_csv(csv_path)
     else:
         df = pd.DataFrame(columns=["Date", "USD/mt (ex VAT)"])
 
+    # Add new row and save
     new_row = pd.DataFrame([[today, usd_price]], columns=["Date", "USD/mt (ex VAT)"])
     df = pd.concat([df, new_row], ignore_index=True)
-    df.to_csv(csv_file, index=False)
+    df.to_csv(csv_path, index=False)
 
     print(f"[{today}] Price logged: ${usd_price} USD/mt (VAT excluded)")
 
