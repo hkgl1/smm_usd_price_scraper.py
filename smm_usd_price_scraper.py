@@ -23,7 +23,8 @@ try:
     time.sleep(10)
 
     # Extract the leftmost USD/mt VAT-excluded price
-    price_element = driver.find_element(By.XPATH, "//div[text()='VAT excluded']/following-sibling::span")
+    print(driver.page_source)
+    price_element = driver.find_element(By.XPATH, "(//div[contains(text(), 'VAT excluded')]/ancestor::div[contains(@class, 'price-item')]//span)[1]")
     raw_price = price_element.text.strip().replace(",", "")
     usd_price = float(raw_price)
 
