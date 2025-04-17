@@ -36,10 +36,9 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git pull origin main
-          if [ -f "usd_lithium_price.csv" ]; then
-            git add usd_lithium_price.csv
+          if [ -f "daily_lithium_prices_horizontal.csv" ]; then
+            git add daily_lithium_prices_horizontal.csv
             git diff --cached --quiet || git commit -m "Daily update: $(date +'%Y-%m-%d')"
             git push
           else
             echo "CSV file not found – skipping commit"
-          fi
