@@ -2,7 +2,7 @@ name: Daily Lithium Price Scraper
 
 on:
   schedule:
-    - cron: '42 8 * * *'  # 16:03 SGT
+    - cron: '42 8 * * *'  # 16:42 SGT
   workflow_dispatch:
 
 jobs:
@@ -42,3 +42,4 @@ jobs:
             git push
           else
             echo "CSV file not found – skipping commit"
+          fi
