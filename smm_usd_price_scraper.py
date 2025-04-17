@@ -9,7 +9,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from datetime import datetime
 import pandas as pd
 from pathlib import Path
-import time
 
 # Set up headless Chrome
 options = Options()
@@ -45,9 +44,13 @@ def extract_price_info(driver, url):
     driver.get(url)
     try:
         price_element = WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'priceItem')][.//div[text()='VAT excluded']]//div[contains(@class, 'price___')]")
+            EC.presence_of_element_located((By.XPATH,
+                "//div[contains(@class, 'priceItem')][.//div[text()='VAT excluded']]//div[contains(@class, 'price___')]"
+            ))
         )
-        price_range_element = driver.find_element(By.XPATH, "//span[contains(text(), 'Price Range')]/following-sibling::span")
+        price_range_element = driver.find_element(By.XPATH,
+            "//span[contains(text(), 'Price Range')]/following-sibling::span"
+        )
 
         avg = float(price_element.text.replace(",", "").strip())
         min_, max_ = [float(x.replace(",", "").strip()) for x in price_range_element.text.split("-")]
@@ -58,7 +61,7 @@ def extract_price_info(driver, url):
         print(f"Failed to extract from {url}: {e}")
         return None, None, None, None
 
-
+# Main scraping process
 driver = webdriver.Chrome(options=options)
 today = datetime.now().strftime("%Y-%m-%d")
 all_data = {"Date": [today]}
