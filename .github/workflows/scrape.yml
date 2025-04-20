@@ -2,7 +2,17 @@ name: Daily Lithium Price Scraper
 
 on:
   schedule:
-    - cron: '5 0 * * *'  # 16:42 SGT
+    - cron: '0 0 * * *'   # 08:00 SGT
+    - cron: '0 1 * * *'   # 10:05 SGT
+    - cron: '0 2 * * *'   # 12:05 SGT
+    - cron: '0 3 * * *'   # 14:05 SGT
+    - cron: '0 4 * * *'   # 16:05 SGT
+    - cron: '0 5 * * *'  # 18:05 SGT
+    - cron: '0 6 * * *'  # 20:05 SGT
+    - cron: '0 7 * * *'  # 22:05 SGT
+    - cron: '0 8 * * *'  # 00:05 SGT (next day)
+    - cron: '0 9 * * *'  # 02:05 SGT (next day)
+    - cron: '0 10 * * *'  # 02:05 SGT (next day)
   workflow_dispatch:
 
 jobs:
@@ -20,7 +30,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install selenium pandas chromedriver-autoinstaller
+          pip install selenium pandas pytz chromedriver-autoinstaller
 
       - name: Install latest Chrome
         run: |
@@ -38,8 +48,7 @@ jobs:
           git pull origin main
           if [ -f "daily_lithium_prices_horizontal.csv" ]; then
             git add daily_lithium_prices_horizontal.csv
-            git diff --cached --quiet || git commit -m "Daily update: $(date +'%Y-%m-%d')"
+            git diff --cached --quiet || git commit -m "Update: $(date +'%Y-%m-%d %H:%M')"
             git push
           else
             echo "CSV file not found – skipping commit"
-          fi
