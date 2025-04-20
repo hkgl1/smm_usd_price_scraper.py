@@ -2,7 +2,7 @@ name: Daily Lithium Price Scraper
 
 on:
   schedule:
-    - cron: '42 8 * * *'  # 16:42 SGT
+    - cron: '5 0 * * *'  # 16:42 SGT
   workflow_dispatch:
 
 jobs:
