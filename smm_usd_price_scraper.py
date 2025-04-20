@@ -6,9 +6,10 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import datetime
+from datetime import datetime, timedelta
 import pandas as pd
 from pathlib import Path
+import pytz
 
 # Set up headless Chrome
 options = Options()
@@ -16,7 +17,7 @@ options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-# All product names and URLs in the desired order
+# Define product URLs
 products = {
     "Li2CO3 Technical Grade": "https://www.metal.com/Lithium/201905160001",
     "Li2CO3 Battery Grade": "https://www.metal.com/Chemical-Compound/201102250059",
@@ -61,10 +62,15 @@ def extract_price_info(driver, url):
         print(f"Failed to extract from {url}: {e}")
         return None, None, None, None
 
-# Main scraping process
+# Main process
 driver = webdriver.Chrome(options=options)
-today = datetime.now().strftime("%Y-%m-%d")
-all_data = {"Date": [today]}
+
+# Record SG time
+sg_now = datetime.now(pytz.timezone("Asia/Singapore"))
+date_str = sg_now.strftime("%Y-%m-%d")
+time_str = sg_now.strftime("%H:%M")
+
+all_data = {"Date": [date_str], "Time (SGT)": [time_str]}
 
 for name, url in products.items():
     min_, max_, avg, rng = extract_price_info(driver, url)
@@ -77,12 +83,13 @@ driver.quit()
 
 # Save to CSV
 csv_path = Path("daily_lithium_prices_horizontal.csv")
+df_new = pd.DataFrame(all_data)
+
 if csv_path.exists():
     df_old = pd.read_csv(csv_path)
-    df_new = pd.DataFrame(all_data)
     df = pd.concat([df_old, df_new], ignore_index=True)
 else:
-    df = pd.DataFrame(all_data)
+    df = df_new
 
 df.to_csv(csv_path, index=False)
-print(f"[{today}] All prices logged successfully.")
+print(f"[{date_str} {time_str}] All prices logged successfully.")
