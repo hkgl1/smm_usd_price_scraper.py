@@ -3,15 +3,6 @@ name: Daily Lithium Price Scraper
 on:
   schedule:
     - cron: '5 0 * * *'   # 08:05 UTC (16:05 SGT)
-    - cron: '15 2 * * *'  # 10:15 UTC (18:15 SGT)
-    - cron: '25 4 * * *'  # 12:25 UTC (20:25 SGT)
-    - cron: '35 6 * * *'  # 14:35 UTC (22:35 SGT)
-    - cron: '45 8 * * *'  # 16:45 UTC (00:45+1 SGT)
-    - cron: '55 10 * * *' # 18:55 UTC (02:55+1 SGT)
-    - cron: '5 13 * * *'  # 21:05 UTC (05:05+1 SGT)
-    - cron: '15 15 * * *' # 23:15 UTC (07:15+1 SGT)
-    - cron: '25 17 * * *' # 01:25 UTC (09:25+1 SGT)
-    - cron: '35 19 * * *' # 03:35 UTC (11:35+1 SGT)
   workflow_dispatch:
 
 jobs:
