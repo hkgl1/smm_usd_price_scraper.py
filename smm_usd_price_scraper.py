@@ -6,18 +6,18 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 from pathlib import Path
 import pytz
 
-# Set up headless Chrome
+# ---- SETUP CHROME ----
 options = Options()
 options.add_argument('--headless')
 options.add_argument('--no-sandbox')
 options.add_argument('--disable-dev-shm-usage')
 
-# Define product URLs
+# ---- DEFINE PRODUCTS ----
 products = {
     "Li2CO3 Technical Grade": "https://www.metal.com/Lithium/201905160001",
     "Li2CO3 Battery Grade": "https://www.metal.com/Chemical-Compound/201102250059",
@@ -26,6 +26,14 @@ products = {
     "LiOH Battery Grade (CIF CJK)": "https://www.metal.com/Lithium/202107020004",
     "LiOH Battery Grade (Micro)": "https://www.metal.com/Lithium/202106020003",
     "LiOH Battery Grade (SMM Index)": "https://www.metal.com/Lithium/202212140004",
+
+    # --- NEW 5 SERIES ---
+    "5s pCAM Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202005200003",
+    "5s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140002",
+    "5s Cathode Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202203280001",
+    "5s Cathode Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140001",
+
+    # --- EXISTING 6 SERIES ---
     "6s pCAM Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220004",
     "6s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201805220002",
     "6s Cathode Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202306150001",
@@ -33,6 +41,8 @@ products = {
     "6s Prismatic Cell": "https://www.metal.com/Lithium-ion-Battery/202405230003",
     "6s Prismatic Pack": "https://www.metal.com/Lithium-ion-Battery/202405230006",
     "6s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250003",
+
+    # --- EXISTING 8 SERIES ---
     "8s pCAM Poly NEV": "https://www.metal.com/Ternary-precursor-material/202005200002",
     "8s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220005",
     "8s Cathode Poly NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202006100012",
@@ -41,6 +51,7 @@ products = {
     "8s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250004"
 }
 
+# ---- PRICE EXTRACTION FUNCTION ----
 def extract_price_info(driver, url):
     driver.get(url)
     try:
@@ -62,14 +73,15 @@ def extract_price_info(driver, url):
         print(f"Failed to extract from {url}: {e}")
         return None, None, None, None
 
-# Main process
+# ---- MAIN SCRAPING ----
 driver = webdriver.Chrome(options=options)
 
-# Record SG time
+# Record SG date and time
 sg_now = datetime.now(pytz.timezone("Asia/Singapore"))
 date_str = sg_now.strftime("%Y-%m-%d")
 time_str = sg_now.strftime("%H:%M")
 
+# Start building row data
 all_data = {"Date": [date_str], "Time (SGT)": [time_str]}
 
 for name, url in products.items():
@@ -81,7 +93,7 @@ for name, url in products.items():
 
 driver.quit()
 
-# Save to CSV
+# ---- CSV UPDATE ----
 csv_path = Path("daily_lithium_prices_horizontal.csv")
 df_new = pd.DataFrame(all_data)
 
