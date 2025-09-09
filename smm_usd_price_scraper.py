@@ -48,7 +48,12 @@ products = {
     "8s Cathode Poly NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202006100012",
     "8s Cathode Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202304230003",
     "8s Battery Cell": "https://www.metal.com/Lithium-ion-Battery/202412230001",
-    "8s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250004"
+    "8s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250004",
+
+    # --- NEW SULPHATES ---
+    "Ni Sulphate": "https://www.metal.com/Nickel/201908270001",
+    "Co Sulphate": "https://www.metal.com/Chemical-Compound/201102250381",
+    "Mn Sulphate": "https://www.metal.com/manganese/201805300001"
 }
 
 # ---- PRICE EXTRACTION FUNCTION ----
