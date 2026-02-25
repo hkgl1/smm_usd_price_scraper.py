@@ -19,41 +19,41 @@ options.add_argument('--disable-dev-shm-usage')
 
 # ---- DEFINE PRODUCTS ----
 products = {
-    "Li2CO3 Technical Grade": "https://www.metal.com/Lithium/201905160001",
-    "Li2CO3 Battery Grade": "https://www.metal.com/Chemical-Compound/201102250059",
-    "LiOH Industrial Grade": "https://www.metal.com/Lithium/202005200001",
-    "LiOH Battery Grade (Coarse)": "https://www.metal.com/Lithium/201102250281",
-    "LiOH Battery Grade (CIF CJK)": "https://www.metal.com/Lithium/202107020004",
-    "LiOH Battery Grade (Micro)": "https://www.metal.com/Lithium/202106020003",
-    "LiOH Battery Grade (SMM Index)": "https://www.metal.com/Lithium/202212140004",
+    "Li2CO3 Technical Grade": "https://www-old.metal.com/Lithium/201905160001",
+    "Li2CO3 Battery Grade": "https://www-old.metal.com/Chemical-Compound/201102250059",
+    "LiOH Industrial Grade": "https://www-old.metal.com/Lithium/202005200001",
+    "LiOH Battery Grade (Coarse)": "https://www-old.metal.com/Lithium/201102250281",
+    "LiOH Battery Grade (CIF CJK)": "https://www-old.metal.com/Lithium/202107020004",
+    "LiOH Battery Grade (Micro)": "https://www-old.metal.com/Lithium/202106020003",
+    "LiOH Battery Grade (SMM Index)": "https://www-old.metal.com/Lithium/202212140004",
 
     # --- NEW 5 SERIES ---
-    "5s pCAM Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202005200003",
-    "5s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140002",
-    "5s Cathode Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202203280001",
-    "5s Cathode Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140001",
+    "5s pCAM Mono NEV": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202005200003",
+    "5s pCAM Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140002",
+    "5s Cathode Mono NEV": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202203280001",
+    "5s Cathode Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201603140001",
 
     # --- EXISTING 6 SERIES ---
-    "6s pCAM Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220004",
-    "6s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201805220002",
-    "6s Cathode Mono NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202306150001",
-    "6s Cathode Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201805220001",
-    "6s Prismatic Cell": "https://www.metal.com/Lithium-ion-Battery/202405230003",
-    "6s Prismatic Pack": "https://www.metal.com/Lithium-ion-Battery/202405230006",
-    "6s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250003",
+    "6s pCAM Mono NEV": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220004",
+    "6s pCAM Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201805220002",
+    "6s Cathode Mono NEV": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202306150001",
+    "6s Cathode Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/201805220001",
+    "6s Prismatic Cell": "https://www-old.metal.com/Lithium-ion-Battery/202405230003",
+    "6s Prismatic Pack": "https://www-old.metal.com/Lithium-ion-Battery/202405230006",
+    "6s Battery Pack": "https://www-old.metal.com/Used-Lithium-ion-Battery/202502250003",
 
     # --- EXISTING 8 SERIES ---
-    "8s pCAM Poly NEV": "https://www.metal.com/Ternary-precursor-material/202005200002",
-    "8s pCAM Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220005",
-    "8s Cathode Poly NEV": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202006100012",
-    "8s Cathode Poly CE": "https://www.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202304230003",
-    "8s Battery Cell": "https://www.metal.com/Lithium-ion-Battery/202412230001",
-    "8s Battery Pack": "https://www.metal.com/Used-Lithium-ion-Battery/202502250004",
+    "8s pCAM Poly NEV": "https://www-old.metal.com/Ternary-precursor-material/202005200002",
+    "8s pCAM Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202312220005",
+    "8s Cathode Poly NEV": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202006100012",
+    "8s Cathode Poly CE": "https://www-old.metal.com/Lithium%20Battery%20Cathode%20Precursor%20and%20Material/202304230003",
+    "8s Battery Cell": "https://www-old.metal.com/Lithium-ion-Battery/202412230001",
+    "8s Battery Pack": "https://www-old.metal.com/Used-Lithium-ion-Battery/202502250004",
 
     # --- NEW SULPHATES ---
-    "Ni Sulphate": "https://www.metal.com/Nickel/201908270001",
-    "Co Sulphate": "https://www.metal.com/Chemical-Compound/201102250381",
-    "Mn Sulphate": "https://www.metal.com/manganese/201805300001"
+    "Ni Sulphate": "https://www-old.metal.com/Nickel/201908270001",
+    "Co Sulphate": "https://www-old.metal.com/Chemical-Compound/201102250381",
+    "Mn Sulphate": "https://www-old.metal.com/manganese/201805300001"
 }
 
 # ---- PRICE EXTRACTION FUNCTION ----
